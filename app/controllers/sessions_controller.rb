@@ -3,7 +3,6 @@ class SessionsController < ApplicationController
 
   def create
     session_code = params['code']
-    binding.pry
     resp = Faraday.post('https://github.com/login/oauth/access_token') do |req|
       req.body = "{'client_id': #{CLIENT_ID},
                    'client_secret': #{CLIENT_SECRET},
