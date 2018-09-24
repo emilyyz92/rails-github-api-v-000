@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   CLIENT_SECRET = ENV['GITHUB_CLIENT_SECRET']
 
   private
-
+  # https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/
   def authenticate_user
     href = "https://github.com/login/oauth/authorize?scope=user&client_id=#{CLIENT_ID}"
     redirect_uri = CGI.escape('http://localhost:3000/auth')
