@@ -4,7 +4,7 @@
   <strong><%= @login %></strong><br>
   <ul>
   <% @repos.each do |repo| %>
-    <li><a href='<%= repo['html_url'] %>'><%= repo.name %></a></li>
+    <li><a href='<%= repo['html_url'] %>'><%= repo['name'] %></a></li>
   <% end %>
 </ul>
   <%= form_tag("/repositories/create", method: "post") do %>

@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  skip_before_action :authenticate_user
 
   CLIENT_ID = ENV['CLIENT_ID']
   CLIENT_SECRET = ENV['CLIENT_SECRET']
@@ -6,7 +7,6 @@ class SessionsController < ApplicationController
   def create
     session_code = params['code']
     resp = Faraday.post('https://github.com/login/oauth/access_token') do |req|
-      binding.pry
       req.body = {'client_id': CLIENT_ID,
                    'client_secret': CLIENT_SECRET,
                    'code': session_code
@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
      end
      access_token = JSON.parse(resp.body)['access_token']
      session[:token] = access_token
+     session[:scope] = JSON.parse(resp.body)['scope'].split(',')
      redirect_to root_path
   end
 end
