@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
   def authenticate_user
     redirect_uri = CGI.escape('http://localhost:3000/auth')
     href = "https://github.com/login/oauth/authorize?
-    scope=user&client_id=#{ENV['CLIENT_ID']}&redirect_uri=#{redirect_uri}"
+    scope=user&client_id=#{ENV['CLIENT_ID']}&redirect_uri=#{redirect_uri}
+    &scope=repo"
     redirect_to href unless logged_in?
   end
 

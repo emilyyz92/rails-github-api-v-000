@@ -16,8 +16,11 @@ class RepositoriesController < ApplicationController
   def create
     resp_create =
     Faraday.post('https://api.github.com/user/repos') do |req|
-      req_auth(req)
-      req.params['name'] = params[:name]
+      req.body = {'client_id': ENV['CLIENT_ID'],
+                  'client_secret': ENV['CLIENT_SECRET'],
+                  'access_token': session[:token],
+                  'name': params[:name]
+                 }
     end
     redirect_to root_path
   end
