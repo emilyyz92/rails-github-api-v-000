@@ -9,7 +9,6 @@ class RepositoriesController < ApplicationController
     resp_repo = Faraday.get(repo_url) do |req|
       req_auth(req)
     end
-    binding.pry
     @login = JSON.parse(resp_login.body)['login']
     @repos = JSON.parse(resp_repo.body)
   end
@@ -20,12 +19,7 @@ class RepositoriesController < ApplicationController
       req_auth(req)
       req.params['name'] = params[:name]
     end
-    binding.pry
-    if resp_create.success?
-      redirect_to root_path
-    else
-      puts resp_create['status']
-    end
+    redirect_to root_path
   end
 
 
